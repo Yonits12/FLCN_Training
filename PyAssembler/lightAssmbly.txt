@@ -11,3 +11,7 @@ inc r7
 jmp [LOOP]
 END: nop
 nop
+nop
+MSG: .string "ISRAELV"
+INDEX: .data 36
+NUM: .data 12345

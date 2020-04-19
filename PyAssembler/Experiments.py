@@ -1,7 +1,9 @@
+print(len('Yoni'))
+exit()
 word = '0123456789'
 word = word[:3] + '__' + word[6:]
 print(word)
-exit()
+
 try:
     int(word, 2)
     print("Binary!")

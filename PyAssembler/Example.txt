@@ -6,4 +6,4 @@ inc r1
 jmp LOOP
 END: nop
 MSG: .string "hello"
-INDEX:.data 12
+INDEX: .data 12
