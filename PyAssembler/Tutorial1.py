@@ -4,7 +4,6 @@ current_address = 0
 sym_tbl = {}
 
 
-# Assembler
 def invokeError(message):
    print("ERROR:" + message)
    exit()
@@ -65,18 +64,14 @@ def update_sym_tbl(label):
 
 def first_step(assembly_file):
    global current_address, sym_tbl
-   # readline
    with open(assembly_file,'r') as origin_file:
       all_lines = origin_file.readlines()
       for index, line in enumerate(all_lines):
-         if line == '\n': continue
+         if line == '\n' or line[0] == ';': continue
          all_lines[index] = translate_line(line[:-1] if line[-1] is '\n' else line)                                  # remove \n
    with open('semi_output.txt', 'w') as outfile:
       for line in all_lines:
          outfile.write(line + '\n')                                  # TODO remove \n before submit
-
-   # passover code
-   print("finish first step")
 
 def second_step(outfile_name):
    global current_address, sym_tbl
@@ -84,12 +79,14 @@ def second_step(outfile_name):
    with open('semi_output.txt','r') as intermidiate_file:
       all_lines = intermidiate_file.readlines()
       for index, line in enumerate(all_lines):
-         print(line)
          all_lines[index] = fix_line(line[:-1] if line[-1] is '\n' else line)                                  # remove \n
-   with open(outfile_name, 'w') as outfile:
+   with open('cool_' + outfile_name, 'w') as outfile:
       for line in all_lines:
          outfile.write(line + '\n')
-   print("finish second step")
+   with open(outfile_name, 'w') as outfile:
+      for line in all_lines:
+         outfile.write(line)
+   print("Assembling Done.")
 
 def validate_expression(code_line):
    tokens = code_line.split(' ')
@@ -166,7 +163,8 @@ def section_handler(words):
 
 
 
-# first_step('lightAssmbly.txt')
-first_step('Example.txt')
+first_step('lightAssmbly.txt')
+# first_step('Example.txt')
 print(sym_tbl)
-second_step('Output_light.txt')
+second_step('lightOutput.txt')
+# second_step('Output.txt')
